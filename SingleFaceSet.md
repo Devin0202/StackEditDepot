@@ -37,12 +37,12 @@ FrSet2018.xlsx
  - 位置: 左，中，右
  - 亮度: 普通，弱光，背光
  - 姿势: 正面，侧面
- - 文件夹序号: **对应三级目录**
+ - 文件夹序号: **对应上文中的三级目录**
  - 照度(Lux): 照度计数值
 
 *[peiyi]: 命名规则为对象姓名
 *[0904141605]: 命名规则为 月日时分秒
 *[14-16-05-270]: 命名规则为 时分秒毫秒
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNzY3MjczOTJdfQ==
+eyJoaXN0b3J5IjpbNjA4MDU3NjQ0XX0=
 -->
