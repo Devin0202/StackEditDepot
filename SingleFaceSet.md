@@ -1,10 +1,12 @@
 # 测试集说明
 ## 版本维护
-|Version|Date|Info|
+|Version|Date|UpdateInfo|
 |:--:|:--:|:--:|
 |1.0|20180920|内部初稿|
-## 目的
-用于人脸检测与识别
+## 简介
+可用于人脸检测与识别的单人测试图像序列
+序列具有时序性，每段时长估计在10s~15s
+模拟从 低头逐渐抬头 至 看见人脸 的过程
 
 ## 基本描述
 |主体对象|数目|分辨率|格式|标签文件|
@@ -29,7 +31,7 @@
 14-16-05-270.nv21为图片文件
 
 ## 标签文件说明
-FrSet2018.xlsx
+<font color="#ff00ff">**FrSet2018.xlsx**</font>
 每个sheet name对应对象(人名)
 每个sheet中有6个属性
 
@@ -44,5 +46,5 @@ FrSet2018.xlsx
 *[0904141605]: 命名规则为 月日时分秒
 *[14-16-05-270]: 命名规则为 时分秒毫秒
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjA4MDU3NjQ0XX0=
+eyJoaXN0b3J5IjpbLTE0MjU1ODU4MDldfQ==
 -->
