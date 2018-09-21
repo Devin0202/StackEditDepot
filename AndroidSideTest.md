@@ -26,7 +26,8 @@
  2. 应用开启外盘读写权限
  3. 测试代码部署
 <font color="#ff0000">**特别提醒：**
-下述代码中，涉及到"frameID: "字段，对应的logID，如果在不同线程记录，需要传递该值，切记！</font>
+下述代码中，涉及到"frameID: "字段，对应的logID，如果在不同线程记录，需要传递该值，切记！
+另外，基于[dalvik.vm.heapsize]: [1024m]的情况，建议在/sdcard/TestData中存放的测试图片序列数量少于600张</font>
 ```
 //初始化
 customXlog.getInstance("", "/sdcard/TestLog", true);
@@ -37,6 +38,7 @@ private long appQuitStart;
 private long appQuitEnd;  
 private String appQuitIndex = null;
 private int frameCount = 0;
+private boolean loadingPrint = true;
 ```
 ```
 //加载替换测试图像阶段
@@ -138,5 +140,5 @@ git clone git@192.168.18.23:bingrui.fu/FacePlus.git -b masterDy
 
 *[log]: 时间戳及相关模块信息
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1MjMzMzY0NTRdfQ==
+eyJoaXN0b3J5IjpbLTE2MjUyNDQzMTJdfQ==
 -->
