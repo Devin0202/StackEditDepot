@@ -5,7 +5,7 @@
 |1.0|20180921|内部初稿|
 ## 简介
 使用现有的camera1架构作为测试主体环境，将camera流替换为测试集图片序列，在各个算法/功能模块的关键位置记录 log，并实现 log 文件化
-## 测试代码(类)
+## 测试主要代码(类)
  1. TestJob.java
  2. customXlog.java
 
@@ -140,5 +140,5 @@ git clone git@192.168.18.23:bingrui.fu/FacePlus.git -b masterDy
 
 *[log]: 时间戳及相关模块信息
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MjUyNDQzMTJdfQ==
+eyJoaXN0b3J5IjpbLTM4MTI0MDc1NF19
 -->
