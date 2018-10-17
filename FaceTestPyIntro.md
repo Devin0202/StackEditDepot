@@ -39,8 +39,6 @@
 *[已完成的文件夹]: 断点重续功能
 *[标签文件xlsx]: eg: FrSet2018.xlsx
 *[序列属性]: eg: ["3m", "侧", "普"]
-
-
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY2OTA2MzEzOF19
+eyJoaXN0b3J5IjpbLTE4MzAwMjQxODYsMTY2OTA2MzEzOF19
 -->
