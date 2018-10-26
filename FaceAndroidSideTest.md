@@ -2,16 +2,16 @@
 ## 版本维护
 |Version|Date|Info|
 |:--:|:--:|:--:|
-|1.0|20180921|内部初稿|
+|1.0|20181026|增加人脸区域相关内容|
 ## 简介
 使用现有的camera1架构作为测试主体环境，将camera流替换为测试集图片序列，在各个算法/功能模块的关键位置记录 log，并实现 log 文件化
+分为 仿真测试 与 全集测试
 ## 测试主要代码(类)
  1. TestJob.java
  2. customXlog.java
 
 ## 代码部署主要流程
 ### 系统端
-
  1. 要求调整最大虚拟机堆空间至1024M
 ```
 [dalvik.vm.heapsize]: [1024m]
@@ -32,10 +32,10 @@
 //初始化
 customXlog.getInstance("", "/sdcard/TestLog", true);
 private TestJob eg = new TestJob("/sdcard/TestData");
-private int delay = 0;  
-private long appStart = System.currentTimeMillis();  
-private long appQuitStart;  
-private long appQuitEnd;  
+private int delay = 0;
+private long appStart = System.currentTimeMillis();
+private long appQuitStart;
+private long appQuitEnd;
 private String appQuitIndex = null;
 private int frameCount = 0;
 private boolean loadingPrint = true;
@@ -57,7 +57,8 @@ public void onPreviewFrame(final byte[] img, final Camera camera) {
         }
 	    imgData = eg.getFrame();
         if (loadingPrint){
-            customXlog.useInstance().cLog( "frameID: " + eg.logID + " file: " + eg.currentFile + " status: loadingEnd");
+            customXlog.useInstance().cLog( "frameID: " + eg.logID + " file: "  
+  + eg.currentFile + " status: loadingEnd" + " fileSN: " + eg.lastIdx);
         }
 
         if (null != eg.currentFile) {
@@ -109,29 +110,57 @@ if (faces != null) {
 }
 ```
 ```
-//识别解析无效阶段
+//提取检测结果人脸位置信息
+//c: 表示第几个人脸    roiFace:人脸位置    confidence:置信分数
+customXlog.useInstance().cLog( "frameID: " + eg.logID  
+  + " status: detectInfo " + c + " " + roiFace.left + " " + roiFace.top  
+  + " " + roiFace.right + " " + roiFace.bottom + " " + faces[c].confidence);
+```
+```
+//识别解析无效阶段，同时记录无效识别的人脸位置信息
 //result: 无效的String返回值
 customXlog.useInstance().cLog("frameID: " + faceReqinfo.mlogID + " status: recoBad " + result);
+customXlog.useInstance().cLog( "frameID: " + faceReqinfo.mlogID  
+  + " status: recgInvalidRoi " + faceReqinfo.mFaceIndex + " "  
+  + faceReqinfo.mRoiFace.left + " " + faceReqinfo.mRoiFace.top + " "  
+  + faceReqinfo.mRoiFace.right + " " + faceReqinfo.mRoiFace.bottom);
 ```
 ```
-//识别解析成功阶段
+//识别解析成功阶段，同时记录有效识别的人脸位置信息
 customXlog.useInstance().cLog("frameID: " + faceReqinfo.mlogID + " status: recoParse" + " ID: " + strId + " score: " + conf);
+customXlog.useInstance().cLog( "frameID: " + faceReqinfo.mlogID  
+  + " status: recgValidRoi " + faceReqinfo.mFaceIndex + " "  
+  + faceReqinfo.mRoiFace.left + " " + faceReqinfo.mRoiFace.top + " "  
+  + faceReqinfo.mRoiFace.right + " " + faceReqinfo.mRoiFace.bottom  
+  + " ID: " + strId + " score: " + conf);
 ```
 ```
-//识别阶段
+//识别阶段，同时记录待识别队列剩余个数
 customXlog.useInstance().cLog("frameID: " + info.mlogID + " status: recoStart");
 //Do recognization
 //...
 //Do recognization
 customXlog.useInstance().cLog("frameID: " + info.mlogID + " status: recoEnd");
+customXlog.useInstance().cLog("frameID: " + info.mlogID  
+  + " CaseIndex: " + appQuitIndex  
+  + " Running remains: " + getArraySize());
 ```
 ```
 //请求识别队列溢出
-customXlog.useInstance().cLog("frameID: " + logID + " status: ObjDiscardFromArray");
+synchronized (mObj) {  
+   boolean ret = mRequestQueue.offer(faceInfo);  
+ while (!ret) {  
+                 customXlog.useInstance().cLog("frameID: " + logID  
+                         + " status: ObjDiscardFromArray");  
+  mRequestQueue.remove();  
+  ret = mRequestQueue.offer(faceInfo);  
+  }  
+   mObj.notify();  
+}
 ```
 ## 相关代码git
-git clone git@192.168.18.23:bingrui.fu/FacePlus.git -b masterDy
-
+仿真测试: git clone git@192.168.18.23:bingrui.fu/FacePlus.git -b masterDy
+全集测试: git clone git@192.168.18.23:bingrui.fu/FacePlus.git -b FullSetTest
 
 
 
@@ -139,6 +168,8 @@ git clone git@192.168.18.23:bingrui.fu/FacePlus.git -b masterDy
 
 
 *[log]: 时间戳及相关模块信息
+*[仿真测试]: 由于硬件限制，真实使用帧率低于测试集采集帧率，部分测试图会被略过
+*[全集测试]: 测试集全集图片全部使用
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM4MTI0MDc1NF19
+eyJoaXN0b3J5IjpbLTg0ODE0OF19
 -->
