@@ -90,7 +90,7 @@ def writeXlsx(iCompareCases, iA, iB, iWriteXlsx, iIndexSheet):
     for x in iCompareCases:
         diffTool(fWws, fW0rs, fW1rs, x, compareEndRow)
         # compareTool(fWws, fW0rs, fW1rs, x, compareEndRow)
-    ...
+	...
 ```
 
 *[单个测试序列集]: eg: 李明-1米-左-弱光-正面
@@ -102,5 +102,5 @@ def writeXlsx(iCompareCases, iA, iB, iWriteXlsx, iIndexSheet):
 *[仿真测试]: 由于硬件限制，真实使用帧率低于测试集采集帧率，部分测试图会被略过
 *[全集测试]: 测试集全集图片全部使用
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU0NzkzMjM1XX0=
+eyJoaXN0b3J5IjpbMzM2MDY1ODk5XX0=
 -->
