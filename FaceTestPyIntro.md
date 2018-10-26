@@ -2,7 +2,7 @@
 ## 版本维护
 |Version|Date|Info|
 |:--:|:--:|:--:|
-|1.1|20181017|增加内部参数说明|
+|1.2|20181026|增加AutoFrTest内容|
 ## 简介
 为了完善人脸项目的自动化测试架构，编写了一下三个Python脚本作为辅助工具，配合android端生成的测试log文件进行使用
  - AutoFrTest
@@ -11,6 +11,7 @@
 ## 批量启动/处理功能(AutoFrTest)
 考虑到全体测试集体积较大，不能一次性复制至设备存储介质，需要分批进行传输+测试操作。目前方案是每 单个测试序列集 启动一次android端自动化测试
 ### 参数配置
+- cAdbDevices: Adb设备选择
 - dataFolder: 测试集根目录
 - objs: 人名分级文件夹
 - cDataDst: 设备端Data目录
@@ -18,6 +19,38 @@
 - cAppID & cAppObj: 待自启动android应用application ID
 - cLocalResults: PC端Log下载目录
 - folderDoneList: 已完成的文件夹(属于单个人名)
+### 内部参数
+因为有两种测试 仿真测试 与 全集测试
+两者的处理策略有所不同
+全集测试 对同一测试集会做多次测试，故执行一次全测试集上传，在移动端分批复制
+仿真测试 对同一测试集会做单次测试，故分批上传测试集
+``` python
+# True 表示进行仿真测试
+def preJob(pushThing, dstSuffix, dataDst, logDst, iAdbDevices):
+    cmd = "adb" + iAdbDevices + "shell rm -rf " + logDst + "/*"
+    (status, output) = subprocess.getstatusoutput(cmd)
+
+    cmd = "adb" + iAdbDevices + "shell rm -rf " + dataDst + "/*"
+    (status, output) = subprocess.getstatusoutput(cmd)
+
+    if True:
+	    ...
+```
+``` python
+# True 表示进行仿真测试
+for obj in objs:
+    dataSet = dataFolder + obj + "/cameraData"
+    for rt, dirs, files in os.walk(dataSet):
+        for name in dirs:
+            if name in folderDoneList:
+                continue
+
+            pushOne = os.path.join(rt, name)
+            preJob(pushOne, name, cDataDst, cLogDst, cAdbDevices)
+
+            if True:
+	            ...
+```
 ## 中间数据解析功能(AutoFrTestParse)
 将android端输出的Log信息语义化，创建含有丰富的中间数据信息xlsx，以供分析
 ### 参数配置
@@ -47,6 +80,10 @@
 *[标签文件xlsx]: eg: FrSet2018.xlsx
 *[测试集属性]: eg: ["3m", "侧", "普"]
 *[中间数据]: 由AutoFrTestParse.py生成的数据表
+
+
+*[仿真测试]: 由于硬件限制，真实使用帧率低于测试集采集帧率，部分测试图会被略过
+*[全集测试]: 测试集全集图片全部使用
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzU1MTY2MTYzXX0=
+eyJoaXN0b3J5IjpbODgxODMwMjQ4XX0=
 -->
