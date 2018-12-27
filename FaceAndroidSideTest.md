@@ -14,7 +14,8 @@
 ### 系统端
  1. 要求调整最大虚拟机堆空间至1024M
 ```
-[dalvik.vm.heapsize]: [1024m]
+dalvik.vm.heapsize=1024m
+dalvik.vm.heapgrowthlimit=1024m
 ```
  2. 新建文件夹：/sdcard/TestData、/sdcard/TestLog
 ### 软件端
@@ -171,5 +172,5 @@ synchronized (mObj) {
 *[仿真测试]: 由于硬件限制，真实使用帧率低于测试集采集帧率，部分测试图会被略过
 *[全集测试]: 测试集全集图片全部使用
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2OTIwOTU5NTVdfQ==
+eyJoaXN0b3J5IjpbLTczMjc4MzUwNV19
 -->
