@@ -2,7 +2,7 @@
 ## 版本维护
 |Version|Date|Info|
 |:--:|:--:|:--:|
-|1.1|20190122|增加实时log功能相关内容|
+|1.2|20190122|增加实时log功能相关内容|
 ## 简介
 使用现有的camera1架构作为测试主体环境，设计的log机制服务于两种模式
 
@@ -310,5 +310,5 @@ Deprecated soon:
 *[仿真测试]: 由于硬件限制，真实使用帧率低于测试集采集帧率，部分测试图会被略过
 *[全集测试]: 测试集全集图片全部使用
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ3OTg3MDg1OV19
+eyJoaXN0b3J5IjpbLTY0MjY4NDA3Nl19
 -->
