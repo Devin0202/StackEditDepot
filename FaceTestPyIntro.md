@@ -11,7 +11,7 @@
 ## 批量启动/处理功能(AutoFrTest)
 考虑到全体测试集体积较大，不能一次性复制至眼镜端存储介质，需要借助移动硬盘或SD卡，分批进行传输+测试操作。目前方案是每 单个测试序列集 启动一次android端自动化测试
 <font color="#ff0000">**特别提醒：**
-请在使用该工具的系统(Windows/linux)下、对应的python版本(2/3)中找到subprocess.py这个文件，
+请在使用该工具的系统(Windows/linux)下、对应的python版本(2 or 3)中找到subprocess.py这个文件，
 加以修改
 Please change the codes in subprocess.py
 In "def run(...):"  
@@ -29,6 +29,7 @@ stdout, stderr = process.communicate()
 - recordLogFolder: 工具运行时日志存放位置
 - isDos: Windows系统请置True，Linux为False
 - isSDmode: 使用SD卡请置True，移动硬盘为False
+- isFullCase: 全集测试请置True，模拟算力为False
 ### 内部参数
 logWriter = EasyLog(recordLogFolder)
 用于生成 工具运行时日志
@@ -107,5 +108,5 @@ def writeXlsx(iCompareCases, iA, iB, iWriteXlsx, iIndexSheet):
 *[仿真测试]: 由于硬件限制，真实使用帧率低于测试集采集帧率，部分测试图会被略过
 *[全集测试]: 测试集全集图片全部使用
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNDcyNDcxNjNdfQ==
+eyJoaXN0b3J5IjpbLTY4NDY4ODEzN119
 -->
