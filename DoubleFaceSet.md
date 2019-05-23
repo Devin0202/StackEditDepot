@@ -39,12 +39,13 @@ Eg: 10-25-58-000.jpg 为图片文件
 <font color="#ff00ff">**DoubleSet1m.txt
 DoubleSet2m.txt
 DoubleSet3m.txt**</font>
+
 每个txt对应不同距离，非精确
+
 txt中有3个属性
  - Case: 文件夹名称，Eg: 0222102558
  - Left: 左侧人物
  - Right: 右侧人物
-
 
 *[sunhaiyan-X-daiyi]: 命名规则为两人姓名
 
